@@ -1,0 +1,33 @@
+
+
+<form [formGroup]="movieForm" (ngSubmit)="onSubmit">
+    
+    <div formGroupName="search">
+        <input formControlName="indentifier" placeholder="Identifiant">
+        <input formControlName="title" placeholder="Titre">
+        <!--Affichage conditionnel du message d'erreur pour le group seaarch-->
+        <div *ngIf = "movieForm.get('search')?.errors?.['isRequired']">
+            L'un des deux champs 'Identifiant' ou 'Titre' doit être renseigné
+        </div>
+    </div>
+
+    <select formControlName="type" id="">
+        <option value="movie">Film</option>
+        <option value="series">Série</option>
+        <option value="episode">Episode</option>
+    </select>
+
+    <input type="releaseYear" type="number" placeholder="Année de sortie">
+    <!-- Affichage conditionnel du message d'erreur pour releaseYear-->
+    <div *ngIf="movieForm.get('releaseYear')?.errors?.['min']">
+    L'Année doit être comprise entre {{ movieForm.get('releaseYear')?.errors?.['min'].min }} et {{movieForm.get('releaseYear')?.errors?.['min'].max}}.
+    </div>
+
+    <select formControlName="recordDetail">
+        <option value="full">Complète</option>
+        <option value="short">Courte</option>
+    </select>
+
+    <button type="submit">Rechercher</button>
+
+</form>
